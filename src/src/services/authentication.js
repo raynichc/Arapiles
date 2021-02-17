@@ -68,7 +68,12 @@ async function register(data) {
         //Extract and set current user data from response
         return true;
     }).catch(error => {
-        return false;
+        if (error.response) { 
+            //Return error message
+            return error.response.data.message[0].messages[0].message;
+        } else {
+            return false;
+        }
     });
 
 
@@ -80,8 +85,10 @@ async function forgotPassword(email) {
     const success = await axios.post(process.env.GATSBY_CMS_HOST + "/auth/forgot-password", {
         email: email
     }).then(response => {
+        console.log(response);
         return true;
     }).catch(error => {
+        console.log(error);
         return false;
     });
 

@@ -40,7 +40,11 @@ class Login extends React.Component {
         if (response === true) {
             this.setState({ success: true });
         } else {
-            actions.setFieldError('general', response);
+            if (response === false) {
+                actions.setFieldError('general', "An error occured");
+            } else {
+                actions.setFieldError('general', response);
+            }
         }
 
         actions.setSubmitting(false);
